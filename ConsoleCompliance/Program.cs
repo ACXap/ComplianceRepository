@@ -41,6 +41,7 @@ namespace ConsoleCompliance
                 {
                     // Получаем коллекцию людей для записи в базу данных
                     var collectionPeople = GetPeoples(peoples);
+                    Console.WriteLine($"Количество подготовленных для загрузки записей: {collectionPeople.Count()}");
 
                     // Записываем людей в базу данных
                     Console.WriteLine("Записываем людей в базу данных");
@@ -57,6 +58,8 @@ namespace ConsoleCompliance
             }
 
             StopApplication();
+
+            Console.ReadLine();
         }
 
         private static void StartApplication()

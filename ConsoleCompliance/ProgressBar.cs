@@ -94,6 +94,7 @@ namespace ConsoleCompliance
 			lock (timer)
 			{
 				disposed = true;
+				timer.Dispose();					
 				UpdateText(string.Empty);
 			}
 		}
