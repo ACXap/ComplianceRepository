@@ -17,11 +17,9 @@ namespace DbRepository
         private const string TABLE_PEOPLE = "public.compliance_people";
         private const string TABLE_CATEGORIES = "public.compliance_categories";
         private const string TABLE_RELATIVES = "public.compliance_relatives";
+        private const string TABLE_CONTACTS = "public.compliance_contacts";
 
         #endregion PrivateField
-
-        #region PrivateMethod
-        #endregion PrivateMethod
 
         #region PublicMethod
 
@@ -130,9 +128,29 @@ namespace DbRepository
 
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
                 {
-                    var update = cmd.ExecuteScalar();
+                    return cmd.ExecuteScalar() is int lastUpdate ? lastUpdate : 0;
+                }
+            }
+        }
 
-                    return update is int ? (int)update : 0;
+        public void AddContacts(int idPerson, IEnumerable<Contact> contacts)
+        {
+            using (NpgsqlConnection conn = new NpgsqlConnection(_connectString))
+            {
+                conn.Open();
+
+                string query = $"INSERT INTO {TABLE_CONTACTS} (people_black_list_id, contact, type) VALUES(@id, @contact, @type)";
+
+                foreach (var item in contacts)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                    {
+                        cmd.Parameters.Add(new NpgsqlParameter<int>("id", idPerson));
+                        cmd.Parameters.Add(new NpgsqlParameter<string>("contact", item.ContactInfo));
+                        cmd.Parameters.Add(new NpgsqlParameter<string>("type", item.Type));
+
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
         }

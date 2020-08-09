@@ -23,6 +23,11 @@ namespace DbRepository
             }));
         }
 
+        public void AddContacts(int idPerson, IEnumerable<Contact> contacts)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddPeoples(IEnumerable<People> peoples)
         {
             if (peoples == null || !peoples.Any()) return;

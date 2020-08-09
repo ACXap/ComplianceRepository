@@ -4,8 +4,6 @@ using DbRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
 
 namespace ConsoleCompliance
 {
@@ -47,9 +45,9 @@ namespace ConsoleCompliance
                     Console.WriteLine("Записываем людей в базу данных");
                     _repositoryChd.AddPeoples(collectionPeople);
 
-                    // Записываем категории и близкие связи людей в базу
-                    Console.WriteLine("Записываем категории и близкие связи людей в базу");
-                    SaveCategoriesRelatives(collectionPeople);
+                    // Записываем вспомогательной информации в базу
+                    Console.WriteLine("Записываем категории, близкие связи людей, контактную информацию в базу");
+                    SaveCategoriesRelativesContacts(collectionPeople);
                 }
             }
             catch (Exception ex)
@@ -82,7 +80,7 @@ namespace ConsoleCompliance
             Console.WriteLine("Обработка завершена!");
         }
 
-        private static void SaveCategoriesRelatives(IEnumerable<People> collectionPeople)
+        private static void SaveCategoriesRelativesContacts(IEnumerable<People> collectionPeople)
         {
             var progress = new ProgressBar();
 
@@ -93,6 +91,7 @@ namespace ConsoleCompliance
             {
                 if (item.Categories.Any()) _repositoryChd.AddCategories(item.BlacklistId, item.Categories);
                 if (item.Relatives.Any()) _repositoryChd.AddRelatives(item.BlacklistId, item.Relatives);
+                if (item.Contacts.Any()) _repositoryChd.AddContacts(item.BlacklistId, item.Contacts);
 
                 progress.Report((double)index++ / count);
             }

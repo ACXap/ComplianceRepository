@@ -30,5 +30,12 @@ namespace DbRepository
         /// <param name="idPerson">Идентификатор физического лица</param>
         /// <param name="categorie">Коллекция категорий</param>
         void AddCategories(int idPerson, IEnumerable<string> categorie);
+       
+        /// <summary>
+        /// Добавить коллекцию контактной информации физического лица
+        /// </summary>
+        /// <param name="idPerson">Идентификатор физического лица</param>
+        /// <param name="categorie">Коллекция контактной информации</param>
+        void AddContacts(int idPerson, IEnumerable<Contact> contacts);
     }
 }

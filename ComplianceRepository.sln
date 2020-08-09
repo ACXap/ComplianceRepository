@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleCompliance", "Consol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbRepository", "DbRepository\DbRepository.csproj", "{1B918452-D95C-4FDE-A35B-85F0083CCCFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{3D78848C-B6CD-430D-B238-AA37B2265F58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1B918452-D95C-4FDE-A35B-85F0083CCCFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B918452-D95C-4FDE-A35B-85F0083CCCFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B918452-D95C-4FDE-A35B-85F0083CCCFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D78848C-B6CD-430D-B238-AA37B2265F58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D78848C-B6CD-430D-B238-AA37B2265F58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D78848C-B6CD-430D-B238-AA37B2265F58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D78848C-B6CD-430D-B238-AA37B2265F58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

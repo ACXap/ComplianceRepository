@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace ComplianceRepository.Data
@@ -22,6 +21,7 @@ namespace ComplianceRepository.Data
             Categories = GetCategories(entityPeople.Categories.Item);
             BirthDateExtra = GetBirthDateExtra(entityPeople.Dob_extra.Item);
             BirthPlaceExtra = GetBirthPlaceExtra(entityPeople.Pob_extra.Item);
+            Contacts = GetContacts(entityPeople.Contact_infos.Item);
         }
 
         public People() { }
@@ -38,6 +38,18 @@ namespace ComplianceRepository.Data
                          $"{AddressRawSource};" +
                           $"{BirthDateExtra};" +
                            $"{BirthPlaceExtra}";
+        }
+
+        private List<Contact> GetContacts(List<Item> contacts)
+        {
+            if (contacts == null || !contacts.Any()) return new List<Contact>(0);
+
+            var cont = contacts.Select(x =>
+            {
+                return new Contact() { ContactInfo = x.Text, Type = x.Type };
+            }).ToList();
+
+            return cont;
         }
 
         private string GetBirthDateExtra(List<Item> dobExtra)
@@ -163,5 +175,10 @@ namespace ComplianceRepository.Data
         /// Список категорий, к которым принадлежит физическое лицо
         /// </summary>
         public List<string> Categories { get; set; }
+
+        /// <summary>
+        /// Список контактной информации лица
+        /// </summary>
+        public List<Contact> Contacts { get; set; }
     }
 }
