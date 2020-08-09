@@ -29,6 +29,8 @@ namespace ComplianceRepository
             try
             {
                 var token = _deserializeService.Deserialize<TokenResponse>(stringRespons);
+                if(token == null || string.IsNullOrEmpty(token.Token)) throw new Exception("Ошибка получения токена\n");
+               
                 return token.Token;
             }
             catch (Exception ex)
@@ -44,6 +46,8 @@ namespace ComplianceRepository
             try
             {
                 var peoples = _deserializeService.Deserialize<Peoples>(stringRespons);
+                if (peoples == null) throw new Exception("Ошибка получения списка людей\n");
+                
                 return peoples;
             }
             catch (Exception ex)

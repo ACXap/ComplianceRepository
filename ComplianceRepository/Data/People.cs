@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ComplianceRepository.Data
@@ -19,6 +20,8 @@ namespace ComplianceRepository.Data
             UpdatedAtSec = int.Parse(entityPeople.Updated_at_sec);
             Relatives = GetRelatives(entityPeople.Relatives.Item);
             Categories = GetCategories(entityPeople.Categories.Item);
+            BirthDateExtra = GetBirthDateExtra(entityPeople.Dob_extra.Item);
+            BirthPlaceExtra = GetBirthPlaceExtra(entityPeople.Pob_extra.Item);
         }
 
         public People() { }
@@ -31,7 +34,28 @@ namespace ComplianceRepository.Data
                       $"{BirthDate};" +
                        $"{BirthPlace};" +
                         $"{DocumentNumber};" +
-                         $"{UpdatedAtSec}";
+                         $"{UpdatedAtSec};" +
+                         $"{AddressRawSource};" +
+                          $"{BirthDateExtra};" +
+                           $"{BirthPlaceExtra}";
+        }
+
+        private string GetBirthDateExtra(List<Item> dobExtra)
+        {
+            if (dobExtra == null || !dobExtra.Any()) return string.Empty;
+
+            var dobe = string.Join(_separator, dobExtra.Where(x => !string.IsNullOrWhiteSpace(x.Text)).Select(x => x.Text).Distinct());
+
+            return dobe;
+        }
+
+        private string GetBirthPlaceExtra(List<Item> pobExtra)
+        {
+            if (pobExtra == null || !pobExtra.Any()) return string.Empty;
+
+            var pobe = string.Join(_separator, pobExtra.Where(x => !string.IsNullOrWhiteSpace(x.Text)).Select(x => x.Text).Distinct());
+
+            return pobe;
         }
 
         private List<string> GetCategories(List<string> categories)
@@ -101,9 +125,19 @@ namespace ComplianceRepository.Data
         public string BirthDate { get; set; }
 
         /// <summary>
+        /// dob Дата рождения: альтернативные
+        /// </summary>
+        public string BirthDateExtra { get; set; }
+
+        /// <summary>
         /// pob Место рождения: основное
         /// </summary>
         public string BirthPlace { get; set; }
+
+        /// <summary>
+        /// pob Место рождения: альтернативные
+        /// </summary>
+        public string BirthPlaceExtra { get; set; }
 
         /// <summary>
         /// persdocs:item:mserial + persdocs:item:number Номер документа одной строкой

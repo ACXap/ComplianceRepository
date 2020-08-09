@@ -13,14 +13,16 @@ namespace testRep
             var rep = new RepositoryComplianceApi(Properties.Settings.Default.ApiKey, Properties.Settings.Default.UrlService);
             var repFile = new RepositoryFile();
 
+            var repdb = new RepositoryChd(Properties.Settings.Default.ConnectString);
+
             try
             {
                 Console.WriteLine("----------------------------");
 
                 // Получаем время последнего обновления в секундах
-                var lastUpdate = repFile.GetLastUpdateAtSec();
+                var lastUpdate = repdb.GetLastUpdateAtSec();
 
-                // + 1 секунда
+                // +1 секунда для следующих записей
                 lastUpdate++;
 
                 var a = rep.GetPeoples(lastUpdate);
@@ -39,15 +41,19 @@ namespace testRep
                 Console.WriteLine("----------------------------");
 
                 repFile.AddPeoples(p);
+                repdb.AddPeoples(p);
 
                 foreach (var item in p)
                 {
                     Console.WriteLine(item);
                     repFile.AddCategories(item.BlacklistId, item.Categories);
                     repFile.AddRelatives(item.BlacklistId, item.Relatives);
+
+                    repdb.AddCategories(item.BlacklistId, item.Categories);
+                    repdb.AddRelatives(item.BlacklistId, item.Relatives);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
