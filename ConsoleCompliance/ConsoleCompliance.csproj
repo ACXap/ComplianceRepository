@@ -68,6 +68,10 @@
       <Project>{1B918452-D95C-4FDE-A35B-85F0083CCCFB}</Project>
       <Name>DbRepository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logger\Logger.csproj">
+      <Project>{3D78848C-B6CD-430D-B238-AA37B2265F58}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
